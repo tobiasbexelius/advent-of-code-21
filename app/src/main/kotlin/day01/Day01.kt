@@ -11,11 +11,23 @@ fun main(args: Array<String>) {
     solve(day, input, ::solveDay01Part1, ::solveDay01Part2)
 }
 
-
 fun solveDay01Part1(input: List<String>): Int {
-    TODO()
+    val (count, _) = input.asSequence()
+        .map { it.toInt() }
+        .fold(0 to Int.MAX_VALUE) { (count, prevDepth), depth ->
+            val newCount = if (depth > prevDepth) count + 1 else count
+            newCount to depth
+        }
+    return count
 }
 
 fun solveDay01Part2(input: List<String>): Int {
-    TODO()
+    val (count, _) = input.asSequence()
+        .map { it.toInt() }
+        .windowed(size = 3) { it.sum() }
+        .fold(0 to Int.MAX_VALUE) { (count, prevDepth), depth ->
+            val newCount = if (depth > prevDepth) count + 1 else count
+            newCount to depth
+        }
+    return count
 }
